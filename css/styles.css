@@ -459,6 +459,50 @@ ol, ul {
 	border-color: #b4b5b5;
 
 }
+.btn-agregar {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #32A5D9;
+    color: white;
+    font-weight: bold;
+    text-align: center;
+    text-decoration: none;
+    padding: 5px;
+    border-radius: 15px;
+    border-color: #32A5D9;
+	font-size: 15px;
+}
+.btn-guardar {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #015596;
+    color: white;
+    font-weight: bold;
+    text-align: center;
+    text-decoration: none;
+    padding: 5px;
+    border-radius: 15px;
+    border-color:#015596;
+	font-size: 15px;
+	margin-right: 5px;
+}
+
+.btn-cancelar {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #AB0232;
+    color: white;
+    font-weight: bold;
+    text-align: center;
+    text-decoration: none;
+    padding: 5px;
+    border-radius: 15px;
+    border-color:#AB0232;
+	font-size: 15px;
+}
 
 .btn-historial {
 	justify-content: center;
@@ -492,6 +536,26 @@ ol, ul {
 	text-decoration: none;
 	padding: 5px;
 	border-radius: 5px;
-	
-
 }
+
+.input1-m{
+    width: 200px;
+    height: 30px;
+}
+.input2-m{
+	width: 100px;
+	height: 30px;
+	}
+.form-group {
+	display: flex;
+}
+	
+.form-group label {
+	margin-right: 5px;
+}
+	
+.form-group textarea {
+width: 250px; 
+}
+	  
+	  
