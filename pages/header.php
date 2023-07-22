@@ -30,7 +30,7 @@
     </div>
 
     <div class="over my-class">
-      <li> <a href="#"><img src="../img/dentista.svg" alt="">Servicios y tratamientos</a></li>
+      <li> <a href="servicios.php"><img src="../img/dentista.svg" alt="">Servicios y tratamientos</a></li>
     </div>
 
     <div class="over my-class">
@@ -56,9 +56,8 @@
     <div class="over my-class">
       <li> <a href="#"><img src="../img/configuracion.svg" alt="">Configuración</a>
         <ul class="ul1">
-          <li><a href="">- Usuarios</a></li>
-          <li><a href="">- Descuentos</a></li>
-          <li><a href="">- Sobre Nosotros</a></li>
+          <li><a href="usuarios.php">- Usuarios</a></li>
+          <li><a href="descuentos.php">- Descuentos</a></li>
         </ul>
       </li>
     </div>

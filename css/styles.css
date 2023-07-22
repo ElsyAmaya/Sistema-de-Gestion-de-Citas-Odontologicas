@@ -412,34 +412,34 @@ ol, ul {
 }
 
 
-#tabla{
-    margin-top:1rem;
+#tabla {
+    margin-top: 1rem;
     border-collapse: collapse;
     width: 100%;
-	font-family: 'Noto Serif', serif;
-	border: 1px solid #015596;
-	font-size: 10px;
+    font-family: 'Noto Serif', serif;
+    border: 1px solid #015596;
+    font-size: 10px;
 }
 
-#tabla th{
-    background-color:#015596;
-    color:white;
-	text-align: center;
+#tabla th {
+    background-color: #015596;
+    color: white;
+    text-align: center;
 }
 
-#tabla td, #tabla th{
+#tabla td,
+#tabla th {
     border: 1px solid #ECEFF1;
-	padding: 10px 0px;
-	border:hidden;
-	font-size: 30px;
-    
+    padding: 20px;
+    border: hidden;
+    font-weight: bold; /* Aplicamos negrita a los datos de la tabla */
+    text-align: center; /* Centramos los datos en las celdas */
 }
 
-#tabla tr:nth-child(even){
+#tabla tr:nth-child(even) {
     background-color: #c4c3c3;
 }
 
- 
 
 #chart{
 	width: 800px;

@@ -17,14 +17,7 @@
 </head>
 
 <style type="text/css">
-    #tabla,
-    #fila,
-    #columna {
-        height: 25px;
-        border: 2px solid black;
-        border-collapse: collapse;
-        text-align: center;
-    }
+    #tabla, #fila ,#columna { height: 25px;  padding: 20px; font-weight: bold;  border: 1px solid black; border-collapse: collapse; text-align: center;}
 </style>
 
 <body>
@@ -330,7 +323,7 @@
                     </div>
                     <br>
                     <!-- Campo hidden para indicar la acción de inserción o edición -->
-                    <input type="text" name="accion" value="insertar" id="accion">
+                    <input type="hidden" name="accion" value="insertar" id="accion">
                     <br>
                     <!-- Botones del formulario -->
                     <div class="col-12 d-flex justify-content-end">
