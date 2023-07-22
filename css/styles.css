@@ -431,12 +431,15 @@ ol, ul {
     border: 1px solid #ECEFF1;
 	padding: 10px 0px;
 	border:hidden;
+	font-size: 30px;
     
 }
 
 #tabla tr:nth-child(even){
-    background-color: #fafafa;
+    background-color: #c4c3c3;
 }
+
+ 
 
 #chart{
 	width: 800px;
@@ -557,5 +560,5 @@ ol, ul {
 .form-group textarea {
 width: 250px; 
 }
-	  
+
 	  
