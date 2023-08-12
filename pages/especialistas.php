@@ -173,6 +173,8 @@
     $(document).ready(function () {
         $(".btn-editar").click(function () {
             var especialista = $(this).data("especialista");
+            var idEspecialista = especialista.id_especialista;
+
             // Cargar los datos del especialista en el formulario modal
             $("#id_especialista").val(especialista.id_especialista);
             $("#dni").val(especialista.dni);
@@ -188,15 +190,41 @@
             $("#numcasa").val(especialista.num_casa);
             $("#tel").val(especialista.telefono);
             $("#correo").val(especialista.correo);
+            $("#usu").val(especialista.id_usuario);
 
-            $("#accion-especialista").val("editar");
-            $("#modalRegistrarEspecialistaLabel").text("Editar Especialista");
+        $.ajax({
+        url: "../crud/obtener_especialidades_por_especialista.php",
+        method: "POST",
+        data: { id_especialista: idEspecialista },
+        success: function (response) {
+            var especialidadesArray = response.split(",");
+            $("#ms").val(especialidadesArray);
+        },
+        error: function () {
+            console.log("Error al obtener las especialidades.");
+        }
+    });
+            $("#accion").val("editar");
+            $("#modalRegistrarLabel").text("Editar Especialista");
         });
 
         $("#btnAgregar").click(function () {
-            $("form")[0].reset();
-            $("#accion-especialista").val("insertar");
-            $("#modalRegistrarEspecialistaLabel").text("Registrar Especialista");
+        $("#id_especialista").val("");
+        $("#dni").val("");
+        $("#firtname").val("");
+        $("#secondname").val("");
+        $("#firtlastname").val("");
+        $("#secondlastname").val("");
+        $("#txtfecha").val("");
+        $("#genero").val("");
+        $("#ciudad").val("");
+        $("#sector").val("");
+        $("#calle").val("");
+        $("#numcasa").val("");
+        $("#tel").val("");
+        $("#correo").val("");
+        $("#accion").val("insertar");
+        $("#modalRegistrarLabel").text("Registrar Especialista");
         });
 
         $(".btn-eliminar").click(function () {
@@ -211,10 +239,10 @@
                     id_especialista: idEspecialista
                 };
                 // Enviar la solicitud POST con los datos del especialista a la URL correspondiente
-                $.post("ruta_hacia_archivo_php.php", data, function (response) {
+                $.post("../crud/crud_especialistas.php", data, function (response) {
                     // Manejar la respuesta del servidor (opcional)
                     // Por ejemplo, redirigir a la página de especialistas después de eliminar con éxito
-                    window.location.href = 'ruta_hacia_pagina_especialistas.php';
+                    window.location.href = '../pages/especialistas.php';
                 }).fail(function (error) {
                     // Manejar el error (opcional)
                     console.error("Error al eliminar el especialista: ", error);
@@ -242,7 +270,7 @@
                 <!-- Puedes utilizar HTML y PHP para construir el formulario -->
                 <!-- Por ejemplo: -->
                 <form action="../crud/crud_especialistas.php" method="POST">
-
+                    <input type="txt" name="id_especialista" id="id_especialista">
                     <label class="fw-bold" for="dni">DNI:</label>
                     <input class="input1-m" type="text" name="dni" id="dni">
                     <br><br>
@@ -313,8 +341,8 @@
                         </select>
                     </div>
                     <br>
-                    <label class="fw-bold" for="ciudad">Usuario:</label>
-                    <select class="input1-m" name="ciudad" id="ciudad">
+                    <label class="fw-bold" for="usu">Usuario:</label>
+                    <select class="input1-m" name="usu" id="usu">
                         <?php
                         require_once '../crud/crud.php';
                         $usuarios = buscarPorCampoUsu('tb_usuarios','estado','Disponible','rol','Especialista');

@@ -81,7 +81,7 @@ function guardarEspecialidadesEspecialista($id_especialista, $especialidades) {
 function obtenerCitasConInformacion() {
     global $conn;
     
-    $sql = "SELECT c.id_cita, CONCAT(p.p_nombre,' - ', p.s_apellido) AS Paciente, st.nombre AS Servicio, CONCAT(e.p_nombre,' - ', e.p_apellido) AS Especialista, c.Fecha, CONCAT(h.hora_ini,' - ', h.hora_fin) AS Horario, c.descripcion, c.estado
+    $sql = "SELECT c.id_cita, CONCAT(p.dni,' - ',p.p_nombre,' - ', p.s_apellido) AS Paciente, st.nombre AS Servicio, CONCAT(e.p_nombre,' - ', e.p_apellido) AS Especialista, c.Fecha, CONCAT(h.hora_ini,' - ', h.hora_fin) AS Horario, c.descripcion, c.estado
             FROM tb_citas c
             INNER JOIN tb_pacientes p ON c.id_paciente= p.id_paciente
             INNER JOIN tb_servicios_tratamientos st ON c.id_srvtrat = st.id_srvtrat
@@ -99,5 +99,56 @@ function obtenerCitasConInformacion() {
     
     return $registros;
 }
+
+function obtenerEspecialidadesPorEspecialista($id_especialista) {
+    global $conn;
+
+    $sql = "SELECT id_especialidad FROM tb_especialistas_especialidades WHERE id_especialista = $id_especialista";
+    $result = $conn->query($sql);
+    
+    $especialidades = array();
+    
+    if ($result->num_rows > 0) {
+        while ($row = $result->fetch_assoc()) {
+            $especialidades[] = $row['id_especialidad'];
+        }
+    }
+
+    return $especialidades;
+}
+function obtenerCitasFiltradas($dniPaciente, $estadoProgramadas, $estadoAsistidas, $estadoCanceladas, $fechaInicial, $fechaFinal) {
+    $citas = obtenerCitasConInformacion(); // Obtener todas las citas
+    
+    // Aplicar filtros
+    $citasFiltradas = array_filter($citas, function ($cita) use ($dniPaciente, $estadoProgramadas, $estadoAsistidas, $estadoCanceladas, $fechaInicial, $fechaFinal) {
+        $cumpleFiltro = true;
+
+        // Filtrar por nombre de paciente
+        if ($dniPaciente && strpos($cita['Paciente'], $dniPaciente) === false) {
+            $cumpleFiltro = false;
+        }
+
+        // Filtrar por estados
+        if ((!$estadoProgramadas && $cita['estado'] === 'Programada') ||
+            (!$estadoAsistidas && $cita['estado'] === 'Asistida') ||
+            (!$estadoCanceladas && $cita['estado'] === 'Cancelada')) {
+            $cumpleFiltro = false;
+        }
+
+        // Filtrar por rango de fechas
+        if ($fechaInicial && $cita['Fecha'] < $fechaInicial) {
+            $cumpleFiltro = false;
+        }
+        if ($fechaFinal && $cita['Fecha'] > $fechaFinal) {
+            $cumpleFiltro = false;
+        }
+
+        return $cumpleFiltro;
+    });
+
+    return $citasFiltradas;
+}
+
+
 
 ?>
