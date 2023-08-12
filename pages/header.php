@@ -72,7 +72,7 @@
     <div class="over my-class">
       <li><a href="#"><img src="../img/reportes.svg" alt="">Reportes</a>
         <ul class="ul1">
-          <li><a href="">- Citas</a></li>
+          <li><a href="reportecita.php">- Citas</a></li>
           <li><a href="">- Consultas</a></li>
           <li><a href="">- Facturación</a></li>
         </ul>
