@@ -47,12 +47,14 @@ function obtenerRegistros($tabla) {
 }
 
 // Función para buscar por cualquier campo en una tabla específica
-function buscarPorCampo($tabla, $campo, $valor) {
+function buscarPorCampoUsu($tabla, $campo, $estado, $campo2, $rol) {
     global $conn;
     // Escapar el valor para evitar inyección de SQL
-    $valor = mysqli_real_escape_string($conn, $valor);
+     // Escapar los valores para evitar inyección de SQL
+     $estado = mysqli_real_escape_string($conn, $estado);
+     $rol = mysqli_real_escape_string($conn, $rol);
     // Construir la consulta SQL
-    $sql = "SELECT * FROM $tabla WHERE $campo = '$valor'";
+    $sql = "SELECT * FROM $tabla WHERE $campo = '$estado'AND $campo2 = '$rol'";
     $result = $conn->query($sql);
     $registros = array();
     if ($result->num_rows > 0) {
@@ -60,6 +62,41 @@ function buscarPorCampo($tabla, $campo, $valor) {
             $registros[] = $row;
         }
     }
+    return $registros;
+}
+
+function guardarEspecialidadesEspecialista($id_especialista, $especialidades) {
+    global $conn;
+    
+    foreach ($especialidades as $id_especialidad) {
+        $sql = "INSERT INTO tb_especialistas_especialidades (id_especialista, id_especialidad) VALUES (?, ?)";
+        $stmt = $conn->prepare($sql);
+        $stmt->bind_param("ii", $id_especialista, $id_especialidad);
+        $stmt->execute();
+    }
+    
+    return true; // O manejar algún control de error si es necesario
+}
+
+function obtenerCitasConInformacion() {
+    global $conn;
+    
+    $sql = "SELECT c.id_cita, CONCAT(p.p_nombre,' - ', p.s_apellido) AS Paciente, st.nombre AS Servicio, CONCAT(e.p_nombre,' - ', e.p_apellido) AS Especialista, c.Fecha, CONCAT(h.hora_ini,' - ', h.hora_fin) AS Horario, c.descripcion, c.estado
+            FROM tb_citas c
+            INNER JOIN tb_pacientes p ON c.id_paciente= p.id_paciente
+            INNER JOIN tb_servicios_tratamientos st ON c.id_srvtrat = st.id_srvtrat
+            INNER JOIN tb_especialistas e ON c.id_especialista = e.id_especialista
+            INNER JOIN tb_horarios h ON c.id_horario = h.id_horario";
+            
+    $result = $conn->query($sql);
+    $registros = array();
+    
+    if ($result->num_rows > 0) {
+        while ($row = $result->fetch_assoc()) {
+            $registros[] = $row;
+        }
+    }
+    
     return $registros;
 }
 

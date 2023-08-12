@@ -15,7 +15,7 @@ include('header.php');
         <div class="blur">
 
             <div class="blur1">
-                <img id="logo" src="../img/LogoDentProO.svg" alt="" width="200px">
+                <img id="logo" src="../img/LogoDentProO.svg" alt="" width="200px"><br>
                 <h4 class="appname" id="appName">Sistema de Gestión de Citas Odontológicas</h4>
 
             </div>

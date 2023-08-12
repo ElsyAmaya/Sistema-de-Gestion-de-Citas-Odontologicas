@@ -30,7 +30,7 @@
            INICIO DE SESIÓN</h4>
           </p>
 
-          <form id="accesspanel" action="main.php" method="POST">
+          <form id="accesspanel" action="login.php" method="POST">
 
             <div>
               <p>
@@ -54,30 +54,29 @@
   </div>
  
   <?php    
-   /*   
    if(isset($_POST['go'])){
-    include('../conexion.php');  
+    include('../crud/db_config.php');  
     session_start();
     $username = $_POST['user'];  
-    $password = $_POST['pass'];  
+    $password = md5($_POST['pass']);  
       
         //to prevent from mysqli injection  
         $username = stripcslashes($username);  
         $password = stripcslashes($password);  
-        $username = mysqli_real_escape_string($conexion, $username);  
-        $password = mysqli_real_escape_string($conexion, $password);  
+        $username = mysqli_real_escape_string($conn, $username);  
+        $password = mysqli_real_escape_string($conn, $password);  
       
-        $sql = "select * from usuarios where nombre_usu = '$username' and contra_usu = '$password' and estado_usu = 'Activo' ";  
-        $result = mysqli_query($conexion, $sql);  
+        $sql = "select * from tb_usuarios where usuario = '$username' and password = '$password' and estado = 'Activo' ";  
+        $result = mysqli_query($conn, $sql);  
         $row = mysqli_fetch_array($result, MYSQLI_ASSOC);  
         $count = mysqli_num_rows($result);  
           
         if($count == 1){  
 
-            $_SESSION['username'] = $row['nombre_usu'];
-            $_SESSION['rol'] = $row['rol_usu'];
+            $_SESSION['username'] = $row['usuario'];
+            $_SESSION['rol'] = $row['rol'];
             echo '<script type="text/javascript">
-            window.location.href="menu.php";
+            window.location.href="main.php";
           
             </script>';
         }  
@@ -89,10 +88,8 @@
   
     </script>';
             
-        }  }  */
+        }  }  
 ?>  
-
-
 </body>
 
 </html>

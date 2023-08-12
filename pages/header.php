@@ -12,6 +12,7 @@
   <meta name="keywords" content="html,DentPro">
   <link rel="stylesheet" href="../css/styles.css">
   <link rel="stylesheet" href="../css/bootstrap.min.css">
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
 </head>
 
@@ -21,29 +22,53 @@
     <li> <a href="javascript:void(0)" class="closebtn" onclick="closeNav()"> × </a></li>
     <li> <a href="main.php"><img src="../img/LogoDentProO.svg" alt="" class="small-img"></a></li>
     <li> <a class="over my-class" href="main.php"><img src="../img/home.svg" alt="">Inicio</a></li>
+    <?php
 
+  
+  session_start();
+
+  if (empty($_SESSION["username"]) || $_SESSION["username"] === ""){
+    header("Location: login.php");
+  }
+    if ($_SESSION['rol'] === 'Administrador' || $_SESSION['rol'] === 'Recepcionista') {
+    echo '
     <div class="over my-class">
       <li> <a href="pacientes.php"><img src="../img/paciente.svg" alt="">Pacientes</a>
-    </div>
+    </div>';
+  };
+    if ($_SESSION['rol'] === 'Administrador') {
+    echo '
     <div class="over my-class">
       <li> <a href="especialistas.php"><img src="../img/medico.svg" alt="">Especialistas</a></li>
-    </div>
-
+    </div>';
+  };
+    if ($_SESSION['rol'] === 'Administrador') {
+    echo '
     <div class="over my-class">
       <li> <a href="servicios.php"><img src="../img/dentista.svg" alt="">Servicios y tratamientos</a></li>
-    </div>
-
+    </div>';
+  };
+    if ($_SESSION['rol'] === 'Administrador' || $_SESSION['rol'] === 'Recepcionista') {
+    echo '
     <div class="over my-class">
-      <li> <a href="#"><img src="../img/cita.svg" alt="">Citas</a></li>
-    </div>
-
+      <li> <a href="citas.php"><img src="../img/cita.svg" alt="">Citas</a></li>
+    </div>';
+  };
+    if ($_SESSION['rol'] === 'Administrador' || $_SESSION['rol'] === 'Especialista') {
+    echo '
     <div class="over my-class">
       <li> <a href="#"><img src="../img/consulta.svg" alt="">Consultas</a></li>
-    </div>
-
+    </div>';
+  };
+    if ($_SESSION['rol'] === 'Administrador' || $_SESSION['rol'] === 'Recepcionista') {
+    echo '
     <div class="over my-class">
       <li> <a href="#"><img src="../img/factura.svg" alt="">Facturación</a></li>
-    </div>
+    </div>';
+  };
+
+  if ($_SESSION['rol'] === 'Administrador' || $_SESSION['rol'] === 'Recepcionista') {
+    echo '
     <div class="over my-class">
       <li><a href="#"><img src="../img/reportes.svg" alt="">Reportes</a>
         <ul class="ul1">
@@ -52,37 +77,22 @@
           <li><a href="">- Facturación</a></li>
         </ul>
       </li>
-    </div>
-    <div class="over my-class">
-      <li> <a href="#"><img src="../img/configuracion.svg" alt="">Configuración</a>
+    </div>';
+  };
+   
+
+  if ($_SESSION['rol'] === 'Administrador'){
+    echo ' <div class="over my-class">
+    <li> <a href="#"><img src="../img/configuracion.svg" alt="">Configuración</a>
         <ul class="ul1">
           <li><a href="usuarios.php">- Usuarios</a></li>
           <li><a href="descuentos.php">- Descuentos</a></li>
-        </ul>
-      </li>
-    </div>
-
-
-    <?php
-
-/*  
-  session_start();
-
-  if (empty($_SESSION["username"]) || $_SESSION["username"] === ""){
-    header("Location: login.php");
-  }
-
-  if ($_SESSION['rol'] === 'administrador'){
-    echo '</li>
-    </div>
-    <div class="over3">
-    <li> <a href="#"><img src="../img/seguridad.svg" alt="" width="10%" >Seguridad</a>
-    <ul class="ul4">
-    <li><a href="RegistrarUsuarios.php">-Usuarios</a></li>
-    </ul></li>';
-  };*/
+          </ul>
+          </li>
+        </div>';
+  };
 ?>
-
+      
   </div>
   </ul>
   </div>
@@ -91,10 +101,10 @@
       <div class="content-menu">
         <button class="openbtn" onclick="openNav()">☰</button>
         <div class="content-cerrar">
-          <?php /*
-        echo '<div class="usuario">Usuario: ' . $_SESSION['username'] . '</div>' */
+          <?php 
+        echo '<div class="usuario">' . $_SESSION['username'] . '</div>' 
     ?>
-          <a class="btn-cerrar" href=".././extras/logout.php"><img src="../img/logout.svg" alt="" width="20%">Cerrar
+          <a class="btn-cerrar" href="../crud/logout.php"><img src="../img/logout.svg" alt="" width="20%">Cerrar
             sesión</a>
         </div>
       </div>

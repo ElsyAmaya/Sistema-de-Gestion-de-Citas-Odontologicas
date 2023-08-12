@@ -1,7 +1,9 @@
 <?php
 
     include('header.php');
-
+    if ($_SESSION['rol'] === 'Especialista'){
+        header("Location: main.php");
+    }
 ?>
 
 <!DOCTYPE html>
@@ -12,18 +14,16 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Pacientes</title>
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
 </head>
 
 <style type="text/css">
-    #tabla, #fila ,#columna { height: 25px;  padding: 20px; font-weight: bold;  border: 1px solid black; border-collapse: collapse; text-align: center;}
+    #tabla, #fila ,#columna { height: 25px;  padding: 10px; font-weight: bold;  border: 1px solid black; border-collapse: collapse; text-align: center;}
 </style>
 
 <body>
 
     <div class="contenedor-general">
-        <div>
             <div class="row">
                 <div class="row mb-4 mt-2 d-flex justify-content-center">
                     <div class="col-2 text-end">
@@ -48,10 +48,9 @@
                         data-bs-target="#modalRegistrar">
                         <img src="../img/aggw.svg" alt="">Agregar
                     </button>
-
-
                 </div>
-                <div>
+            
+                <div class="scroll_tabla">
                     <table id="tabla">
                         <thead>
                             <tr id="fila">
@@ -63,7 +62,7 @@
                                 <th id="columna">Segundo Apellido</th>
                                 <th id="columna">Fecha Nac.</th>
                                 <th id="columna">Género</th>
-                                <th id="columna">Ciudad</th>
+                                <th id="columna">Id_Ciudad</th>
                                 <th id="columna">Sector</th>
                                 <th id="columna">Calle</th>
                                 <th id="columna"># Casa</th>
@@ -162,10 +161,9 @@
     ?>
                         </tbody>
                     </table>
-                </div>
-            </div>
-        </div>
-    </div>
+                    </div>
+                  </div>
+                 </div>
 </body>
 <form action="../crud/crud_pacientes.php" method="POST" id="formPaciente"></form>
 <script>
@@ -241,8 +239,6 @@
             });
         }
     });
-
-
 </script>
 
 </html>
@@ -261,7 +257,7 @@
             <div class="modal-body">
                 <!-- Formulario de registro/edición -->
                 <form action="../crud/crud_pacientes.php" method="POST">
-                    <input type="text" name="id_paciente" id="id_paciente">
+                    <input type="hidden" name="id_paciente" id="id_paciente">
                     <label class="fw-bold" for="dni">DNI:</label>
                     <input class="input1-m" type="text" name="dni" id="dni">
                     <br><br>
@@ -274,13 +270,13 @@
                     <input class="input2-m" type="text" name="secondlastname" id="secondlastname" placeholder="Segundo">
                     <br><br>
                     <label class="fw-bold" for="fn">Fecha Nacimiento:</label>
-                    <input class="input1-m" name="txtfecha" id="txtfecha" type="date" value="2022-01-01"
-                        min="2022-09-30" max="2025-12-31" required />
+                    <input class="input1-m" name="txtfecha" id="txtfecha" type="date"
+                        min="1913-12-31" max="" required />
                     <br><br>
                     <label class="fw-bold" for="genero">Género:</label>
                     <select class="input1-m" name="genero" id="genero">
-                        <option VALUES="F">Femenino</option>
-                        <option VALUES="M">Maculino</option>
+                    <option value="F">Femenino</option>
+                    <option value="M">Masculino</option>
                     </select>
                     <br><br>
                     <label class="fw-bold" for="ciudad">Ciudad:</label>
@@ -339,3 +335,11 @@
         </div>
     </div>
 </div>
+<script>
+    const today = new Date();
+    const yyyy = today.getFullYear();
+    const mm = String(today.getMonth() + 1).padStart(2, '0');
+    const dd = String(today.getDate()).padStart(2, '0');
+    const maxDate = `${yyyy}-${mm}-${dd}`;
+    document.getElementById("txtfecha").setAttribute("max", maxDate);
+</script>
